@@ -1,0 +1,54 @@
+<app-sidebar></app-sidebar>
+
+<div class="w3-container" id="contact" style="margin: top 75px">
+    <h1 class="w3-xxlarge w3-text-teal"><b>Add Book</b></h1>
+    <hr style="width:50px;border: 5px solid teal" class="w3-round">
+    <p>Add some books in this lovely library, so that the world can read, read and read!</p>
+    <form (ngSubmit)="NewBooks()">
+
+        <div class="w3-section">
+            <label>Id</label>
+            <input class="w3-input w3-border" name="id" type="number" required [(ngModel)]='Bitem.Id'>
+        </div>
+
+        <div class="w3-section">
+            <label>Title</label>
+            <input class="w3-input w3-border" id="titlee" name="title" type="text" required [(ngModel)]='Bitem.title'>
+        </div>
+
+        <div class="w3-section">
+            <label>Author</label>
+            <input class="w3-input w3-border" name="author" type="text" required [(ngModel)]='Bitem.author'>
+        </div>
+
+        <div class="w3-section">
+            <label>Pages</label>
+            <input class="w3-input w3-border" name="pages" type="number" required [(ngModel)]='Bitem.pages'>
+        </div>
+
+        <div class="w3-section">
+            <label>Price</label>
+            <input class="w3-input w3-border" name="price" type="number" required [(ngModel)]='Bitem.price'>
+        </div>
+
+        <div class="w3-section">
+            <label>Image</label>
+            <input class="w3-input w3-border" name="image" type="text" required [(ngModel)]='Bitem.imageUrl'>
+        </div>
+
+        
+        <button type="submit" class="w3-button w3-block w3-padding-large w3-teal w3-margin-bottom">Save</button>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
