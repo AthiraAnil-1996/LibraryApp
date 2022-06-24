@@ -27,7 +27,7 @@ NewBooks()
   {    
     this.bookservice.editBook(this.Bitem);   
     alert("Success");
-    this.router.navigate(['list']);
+    this.router.navigate(['/main/list']);
 }
 }
 
