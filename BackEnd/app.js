@@ -7,6 +7,45 @@ const app = new express();
 app.use(cors());
 app.use(bodyparser.json());
 
+
+app.post("/signup", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Method:GET,POST,PUT,DELETE");
+  var userCred = {
+    email: req.body.email,
+    password: req.body.password,
+  };
+  var userdb = new credentials(userCred);
+  userdb.save();
+  res.send();
+});
+
+app.post("/login", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Method:GET,POST,PUT,DELETE");
+  credentials
+  .findOne({ email: req.body.email, password: req.body.password },(err,user)=>{
+    if(err){
+      console.log("error is",err)
+    }
+    else{
+      console.log(user)
+    }
+  }).clone()
+  .then((user) => {
+    if(user !== null){
+    let payload = { subject: user.email + user.password };
+    let token = jwt.sign(payload, "secretKey");
+    res.status(200).send({ token });
+    }
+    else{
+      res.status(401).send('Wrong Credentials')
+    }
+  });
+
+});
+
+
 app.get('/Library', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods:GET, POST, PUT, DELETE");

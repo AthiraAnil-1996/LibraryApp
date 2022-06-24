@@ -22,7 +22,7 @@ export class AddBookComponent implements OnInit {
 
     this.bookservice.NewBooks(this.Bitem);
     alert('New Book added!');
-    this.router.navigate(['/']);
+    this.router.navigate(['/main/list']);
 
   }
 
