@@ -3,27 +3,29 @@ const Book = require('./src/model/librarymodel');
 const cors = require('cors');
 const bodyparser = require('body-parser');
 const app = new express();
+const path = require('path');
 
 app.use(cors());
 app.use(bodyparser.json());
+app.use(express.static('./dist/front-end'));
 
 
-app.post("/signup", (req, res) => {
+app.post("/api//signup", (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Method:GET,POST,PUT,DELETE");
-  var userCred = {
+  var cred = {
     email: req.body.email,
     password: req.body.password,
   };
-  var userdb = new credentials(userCred);
-  userdb.save();
+  var db = new details(cred);
+  db.save();
   res.send();
 });
 
-app.post("/login", (req, res) => {
+app.post("/api/login", (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Method:GET,POST,PUT,DELETE");
-  credentials
+  details
   .findOne({ email: req.body.email, password: req.body.password },(err,user)=>{
     if(err){
       console.log("error is",err)
@@ -46,7 +48,7 @@ app.post("/login", (req, res) => {
 });
 
 
-app.get('/Library', function (req, res) {
+app.get('/api/Library', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods:GET, POST, PUT, DELETE");
 
@@ -56,7 +58,7 @@ app.get('/Library', function (req, res) {
         })
 })
 
-app.post('/insert',function (req, res) {
+app.post('/api/insert',function (req, res) {
 
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods:GET, POST, PUT, DELETE");
@@ -77,7 +79,7 @@ app.post('/insert',function (req, res) {
 
 })
 
-app.get('/:id',(req,res)=>{
+app.get('/api/:id',(req,res)=>{
     Book.findById(req.params.id)
     .then((data)=>{
         console.log(data);
@@ -85,7 +87,7 @@ app.get('/:id',(req,res)=>{
     })
 })
 
-app.put("/update", (req, res) => {
+app.put("/api/update", (req, res) => {
     Book.findByIdAndUpdate(
       req.body._id,
       {
@@ -108,7 +110,7 @@ app.put("/update", (req, res) => {
       }
     );
   });
-app.delete('/remove/:id',(req,res)=>{
+app.delete('/api/remove/:id',(req,res)=>{
 
     
     Book.findByIdAndDelete(req.params.id)
@@ -118,5 +120,10 @@ app.delete('/remove/:id',(req,res)=>{
     })
 
 })
-app.listen(3000);
+
+app.get('/*', function (req,res) {
+
+  res.sendFile(path.join(_dirname + '/dist/front-end/index.html'));
+})
+app.listen(process.env.PORT||3000);
 
