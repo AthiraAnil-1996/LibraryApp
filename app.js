@@ -14,8 +14,8 @@ app.post("/api//signup", (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Method:GET,POST,PUT,DELETE");
   var cred = {
-    email: req.body.email,
-    password: req.body.password,
+    email : req.body.email,
+    password : req.body.password,
   };
   var db = new details(cred);
   db.save();
